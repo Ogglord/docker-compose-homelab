@@ -87,8 +87,8 @@ services:
       - homepage.description=Plex Statistics
       - homepage.weight=4
       - homepage.widget.type=tautulli
-      - homepage.widget.url=https://home.ogglord.com/tautulli
-      - homepage.widget.key=${TAUTULLI_API_KEY}         
+      - homepage.widget.url=https://${HOSTNAME}/tautulli
+      - homepage.widget.key=${TAUTULLI_API_KEY}
   pinchflat:
     image: keglin/pinchflat:latest
     container_name: pinchflat    
