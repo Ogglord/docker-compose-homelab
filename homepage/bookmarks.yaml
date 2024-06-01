@@ -1,0 +1,14 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/en/configs/bookmarks
+
+- External:
+    - Docker-Compose-Homelab:
+        - abbr: NAS
+          href: https://github.com/Ogglord/docker-compose-homelab
+    - Tailscale:
+        - abbr: TS
+          href: https://login.tailscale.com/admin/machines
+    - Cloudflare:
+        - abbr: CF
+          href: https://cloudflare.com
