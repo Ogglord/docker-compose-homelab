@@ -14,3 +14,7 @@
  6. Setup reverse proxies and SSL certificate in Nginx Proxy Manager
  7. Configure the containers 1 by 1
  8. Make a full backup ;)
+
+### Special features
+
+The plex container automatically installs the TubeArchivist plug-in. Using the hook that linuxserver.io provides, it is described [here](https://docs.linuxserver.io/general/container-customization/).
