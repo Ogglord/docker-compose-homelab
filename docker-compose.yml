@@ -43,18 +43,19 @@ services:
     container_name: plex
     network_mode: host
     environment:
+      - DOCKER_MODS=oggelito/plex-tubearchivist
       - PUID=${USER_ID}
       - PGID=${GROUP_ID}
       - TZ=${TIMEZONE}
       - VERSION=docker
       - PLEX_HOME=/config/
       - TA_API_KEY=${TA_API_KEY}
-      - TA_URL=https://tube.${HOSTNAME}
+      - TA_URL=https://tube.${TLDN}:443
     volumes:
       - plex:/config
       - nas_media:/media
-      - ./plex/init.d:/custom-cont-init.d:ro
-      - ./plex/services.d:/custom-services.d:ro
+      #- ./plex/init.d:/custom-cont-init.d:ro
+      #- ./plex/services.d:/custom-services.d:ro
     restart: unless-stopped
     healthcheck:
       test: curl --connect-timeout 5 --silent --show-error --fail http://localhost:32400/identity
