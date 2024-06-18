@@ -54,9 +54,12 @@ services:
     volumes:
       - plex:/config
       - nas_media:/media
+      - /dev/shm:/transcode
       #- ./plex/init.d:/custom-cont-init.d:ro
       #- ./plex/services.d:/custom-services.d:ro
     restart: unless-stopped
+    devices:
+      - /dev/dri:/dev/dri 
     healthcheck:
       test: curl --connect-timeout 5 --silent --show-error --fail http://localhost:32400/identity
       interval: 1m00s
