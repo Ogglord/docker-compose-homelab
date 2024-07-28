@@ -17,4 +17,6 @@
 
 ### Special features
 
-The plex container automatically installs the TubeArchivist plug-in. Using the hook that linuxserver.io provides, it is described [here](https://docs.linuxserver.io/general/container-customization/).
+TubeArchivist downloads youtube episodes for offline viewing, the channels can be browsed in Plex Media Server.
+
+The Plex Media Server container automatically installs the TubeArchivist plug-in. Using a linuxserver.io Mod that I have written, named [plex-tubearchivist](https://github.com/Ogglord/plex-tubearchivist).
