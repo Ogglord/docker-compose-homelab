@@ -1,0 +1,76 @@
+name: core
+
+services:
+  nginx:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - '80:80' # Public HTTP Port
+      - '443:443' # Public HTTPS Port
+    #  - '81:81' # Admin Web Port (not needed, its proxied @ npm.TLDN)
+    environment:
+      - DB_MYSQL_HOST=mysql
+      - DB_MYSQL_PORT=3306
+      - DB_MYSQL_USER=${NPM_CREDENTIAL}
+      - DB_MYSQL_PASSWORD=${NPM_CREDENTIAL}
+      - DB_MYSQL_NAME=${NPM_CREDENTIAL}
+      - DISABLE_IPV6=true
+    volumes:
+      - ${CONFIG_ROOT:-.}/npm:/data
+      - ${CONFIG_ROOT:-.}/npm_letsencrypt:/etc/letsencrypt
+    depends_on:
+      - mysql
+    labels:
+      - homepage.group=Infrastructure
+      - homepage.name=Nginx Proxy Manager
+      - homepage.icon=nginx-proxy-manager.png
+      - homepage.href=https://npm.${TLDN}
+      - homepage.description=Proxy
+      - homepage.weight=3 #
+  mysql:
+    image: 'jc21/mariadb-aria:latest'
+    container_name: mysql
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=${NPM_CREDENTIAL}
+      - MYSQL_DATABASE=${NPM_CREDENTIAL}
+      - MYSQL_USER=${NPM_CREDENTIAL}
+      - MYSQL_PASSWORD=${NPM_CREDENTIAL}
+      - MARIADB_AUTO_UPGRADE=1
+    volumes:
+      - ${CONFIG_ROOT:-.}/mysql:/var/lib/mysql
+  
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    environment:
+      - HOMEPAGE_VAR_TITLE=${HOMEPAGE_VAR_TITLE}
+      - HOMEPAGE_VAR_SEARCH_PROVIDER=${HOMEPAGE_VAR_SEARCH_PROVIDER}
+      - HOMEPAGE_VAR_HEADER_STYLE=${HOMEPAGE_VAR_HEADER_STYLE}
+      - HOMEPAGE_VAR_WEATHER_CITY=${HOMEPAGE_VAR_WEATHER_CITY}
+      - HOMEPAGE_VAR_WEATHER_LAT=${HOMEPAGE_VAR_WEATHER_LAT}
+      - HOMEPAGE_VAR_WEATHER_LONG=${HOMEPAGE_VAR_WEATHER_LONG}
+      - HOMEPAGE_VAR_WEATHER_TIME=${TIMEZONE}
+      - HOMEPAGE_VAR_WEATHER_UNIT=${HOMEPAGE_VAR_WEATHER_UNIT}
+    volumes:
+      - ${CONFIG_ROOT:-.}/homepage:/app/config
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ${DATA_ROOT}:/data
+    ports:
+      - 3000:3000
+    restart: always
+    command: [sh, -c, "cp -n /app/config/tpl/*.yaml /app/config && node server.js"]      
+
+volumes:
+  nas_root:
+    driver: local
+    driver_opts:
+      type: cifs
+      device: //192.168.0.9/storage
+      o: username=${CIFS_USERNAME},password=${CIFS_PASSWORD},uid=1000,gid=1000
+
+networks:
+  default:
+    name: docker-thinkpad-ogge
+    external: true
