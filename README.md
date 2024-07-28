@@ -2,7 +2,7 @@
 
 ### Screenshot
 
-<img src="https://raw.githubusercontent.com/Ogglord/docker-compose-homelab/main/resources/homepage.png" alt="screenshot of homepage" />
+<img src="https://raw.githubusercontent.com/Ogglord/docker-compose-homelab/main/pvr-apps/resources/homepage.png" alt="Missing Screenshot" />
 
 ### Getting started
 
