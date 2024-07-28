@@ -2,7 +2,7 @@
 
 ### Screenshot
 
-<img height="200" src="https://raw.githubusercontent.com/Ogglord/docker-compose-homelab/main/core-apps/resources/homepage.png" alt="Missing Screenshot" />
+<img height="400" src="https://raw.githubusercontent.com/Ogglord/docker-compose-homelab/main/core-apps/resources/homepage.png" alt="Missing Screenshot" />
 
 ### Getting started
 
