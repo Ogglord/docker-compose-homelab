@@ -12,8 +12,8 @@
  4. ```./update-config.sh```
  5. Re-start the relevant containers using ```docker compose up -d``` again
  6. Setup reverse proxies and SSL certificate in Nginx Proxy Manager
- 7. Configure the containers 1 by 1
- 8. Make a full backup ;)
+ 7. Configure the containers, etc.
+ 8. Setup backups if you care about the state of things 
 
 ### Special features
 
