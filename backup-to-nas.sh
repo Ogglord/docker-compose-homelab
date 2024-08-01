@@ -22,7 +22,7 @@ echo "Creating backups and uploading to $CIFS_USERNAME@${backup_ip}"
 docker exec -t immich_postgres pg_dumpall --clean --if-exists --username=postgres | gzip > "./$DUMPFILE"
 if [ -f "./$DUMPFILE" ]; then
     echo "Dump succesfull. Copying to server..."
-    ssh "$CIFS_USERNAME@${backup_ip}" "mkdir /mnt/storage/backup/docker" && \
+    ssh "$CIFS_USERNAME@${backup_ip}" "mkdir -p /mnt/storage/backup/docker" && \
     scp "./$DUMPFILE" "$CIFS_USERNAME@${backup_ip}:/mnt/storage/backup/docker/$DUMPFILE"
     echo "Renaming last backup to $DUMPFILE.old"
     rm -f "./$DUMPFILE.old" && \
