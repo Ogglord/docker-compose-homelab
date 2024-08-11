@@ -2,6 +2,7 @@
 echo "Updating docker images..."
 
 update(){
+    ln -s ../.env .env
     echo "Updating $PWD"
     docker compose pull
     docker compose up --build -d --remove-orphans

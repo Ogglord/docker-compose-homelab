@@ -1,0 +1,24 @@
+name: social
+
+services:
+  thelounge:
+    image: ghcr.io/thelounge/thelounge:latest
+    container_name: thelounge
+    #ports:
+    #  - "9000:9000"
+    restart: always
+    volumes:
+      - ${CONFIG_ROOT:-.}/thelounge:/var/opt/thelounge # bind lounge config from the host's file system
+    labels:
+      - homepage.group=Social
+      - homepage.name=The Lounge (IRC)
+      - homepage.icon=mirc.png
+      - homepage.href=https://home.${TLDN}/irc
+      - homepage.description=IRC
+      - homepage.weight=3 #
+#volumes:
+
+networks:
+  default:
+    name: docker-thinkpad-ogge
+    external: true
